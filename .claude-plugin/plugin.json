@@ -1,0 +1,8 @@
+{
+  "name": "spotify-playlist-curator",
+  "description": "Gives AI agents musical intuition for Spotify playlist curation — audio DNA profiling, multi-source recommendations, and aesthetic blending across artists and genres.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Rachel Howell"
+  }
+}
