@@ -73,11 +73,13 @@ def main() -> None:
             )
         elif "invalid_client" in error_msg:
             print(
-                "  Your client ID or client secret appears to be invalid.",
-                file=__import__("sys").stderr,
-            )
-            print(
-                "  Double-check the values in your .env file.",
+                "  Your client ID or client secret is invalid.\n"
+                "  This usually means:\n"
+                "    1. The .env file still has placeholder values (your_client_id_here)\n"
+                "    2. The credentials were copied incorrectly (extra spaces, missing characters)\n"
+                "    3. The Spotify app was deleted from the developer dashboard\n\n"
+                "  To fix: open the .env file in the skill root, verify your credentials\n"
+                "  match what's shown at https://developer.spotify.com/dashboard, and re-run.",
                 file=__import__("sys").stderr,
             )
         else:

@@ -64,6 +64,13 @@ def resolve_client_credentials() -> tuple[str, str]:
     client_id = os.environ.get("SPOTIFY_CLIENT_ID") or os.environ.get("SPOTIPY_CLIENT_ID")
     client_secret = os.environ.get("SPOTIFY_CLIENT_SECRET") or os.environ.get("SPOTIPY_CLIENT_SECRET")
 
+    placeholders = {"your_client_id_here", "your_client_secret_here"}
+    if client_id in placeholders or client_secret in placeholders:
+        raise RuntimeError(
+            "Spotify credentials in .env are still set to placeholder values.\n\n"
+            "Replace them with real credentials from https://developer.spotify.com/dashboard\n"
+            "Then re-run the auth script."
+        )
     if not client_id and not client_secret:
         searched = [str(p) for p in _candidate_paths()]
         raise RuntimeError(

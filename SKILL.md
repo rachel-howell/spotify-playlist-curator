@@ -44,6 +44,15 @@ Before your first CLI call, check that the environment is set up:
 
 Do not attempt other commands until `status` returns `authenticated: true`.
 
+### Common setup errors
+
+| Error | Cause | What to tell the user |
+|---|---|---|
+| `invalid_client` or "client ID invalid" | The `.env` file has placeholder values or incorrect credentials | Open `.env` in the skill root, replace `your_client_id_here` / `your_client_secret_here` with real credentials from https://developer.spotify.com/dashboard, then re-run `spotify_auth.py` |
+| `credentials not found` or "placeholder values" | Setup ran but user didn't edit `.env` | Same as above — they need to create a Spotify app and paste the credentials |
+| `no such file or directory: .venv/bin/python` | `.venv` doesn't exist | Run `bash scripts/setup.sh` from the skill root first |
+| `redirect_uri_mismatch` | Spotify app's redirect URI doesn't match | In the Spotify developer dashboard, set the redirect URI to `http://127.0.0.1:8888/callback` |
+
 ## Spotify API constraints (as of March 2026)
 
 Before calling any CLI command, be aware of these active Spotify API regressions. They **will** cause silent failures or 403/400 errors if you ignore them.
