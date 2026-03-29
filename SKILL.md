@@ -21,18 +21,24 @@ Use this skill for Spotify playlist creation, song selection, listening-history 
 - When the user expresses a taste preference ("I don't like X", "I love Y", "never include Z"), save it to the taste profile so it persists across sessions.
 - If the user explicitly requests an artist that appears in the taste profile's excluded list (e.g., "make me a Taylor Swift playlist" when Taylor Swift is excluded), inform them of the conflict and ask if they'd like to make an exception for this playlist. Do not silently override the exclusion or silently produce empty/confusing results.
 
-## Auth pre-check
+## Environment pre-check
 
-Before your first CLI call, verify auth is set up:
+Before your first CLI call, check that the environment is set up:
 
-```bash
-.venv/bin/python scripts/spotify_cli.py --json status
-```
+1. **Check for `.venv`** — if the `.venv` directory does not exist in the skill root, tell the user to run setup first:
+   ```bash
+   bash scripts/setup.sh
+   ```
+   Do not attempt to create the venv yourself or install dependencies manually. The setup script handles everything including credential prompts.
 
-If `authenticated` is false, tell the user to run the auth flow:
-```bash
-.venv/bin/python scripts/spotify_auth.py
-```
+2. **Check auth** — once `.venv` exists, verify authentication:
+   ```bash
+   .venv/bin/python scripts/spotify_cli.py --json status
+   ```
+   If `authenticated` is false, tell the user to run the auth flow:
+   ```bash
+   .venv/bin/python scripts/spotify_auth.py
+   ```
 
 Do not attempt other commands until `status` returns `authenticated: true`.
 
