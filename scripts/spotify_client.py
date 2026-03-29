@@ -33,14 +33,12 @@ SCOPES = [
 
 def _candidate_paths() -> list[Path]:
     script_dir = Path(__file__).resolve().parent
+    skill_root = script_dir.parent
     cwd = Path.cwd()
-    project_root = script_dir.parent.parent.parent
     return [
-        project_root / "secrets" / "spotify.env",
+        skill_root / ".env",
         script_dir / ".env",
-        script_dir.parent / ".env",
         cwd / ".env",
-        cwd / "secrets" / "spotify.env",
     ]
 
 
@@ -94,22 +92,17 @@ def resolve_tokens_path() -> Path:
     if explicit:
         return Path(explicit).expanduser()
     script_dir = Path(__file__).resolve().parent
+    skill_root = script_dir.parent
     cwd = Path.cwd()
-    # Derive project root from the known skill layout:
-    #   skills/spotify-playlist-curator/scripts/ -> project root is 3 levels up
-    project_root = script_dir.parent.parent.parent
     candidates = [
-        # Prefer the canonical project-level token file (shared with spotify_helper)
-        project_root / "secrets" / "spotify_tokens.json",
-        cwd / "secrets" / "spotify_tokens.json",
+        skill_root / "spotify_tokens.json",
         script_dir / "spotify_tokens.json",
-        script_dir.parent / "spotify_tokens.json",
         cwd / "spotify_tokens.json",
     ]
     for path in candidates:
         if path.exists():
             return path
-    return project_root / "secrets" / "spotify_tokens.json"
+    return skill_root / "spotify_tokens.json"
 
 
 @dataclass

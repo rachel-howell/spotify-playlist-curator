@@ -59,7 +59,7 @@ elif ! grep -q 'CLIENT_ID' "$ENV_FILE" 2>/dev/null || ! grep -q 'CLIENT_SECRET' 
   echo "Make sure both are set, then authenticate:"
   echo "  .venv/bin/python scripts/spotify_auth.py"
 else
-  TOKENS_FILE="$SCRIPT_DIR/spotify_tokens.json"
+  TOKENS_FILE="$SKILL_DIR/spotify_tokens.json"
   if [ -f "$TOKENS_FILE" ] && grep -q 'access_token' "$TOKENS_FILE" 2>/dev/null; then
     echo "Already set up. You're ready to go!"
   else
