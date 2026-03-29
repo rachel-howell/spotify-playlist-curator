@@ -127,7 +127,7 @@ class SpotifyTokens:
             raise RuntimeError(
                 f"Token file is missing the required field {exc}.\n"
                 "The token file may be corrupted or from an older version.\n"
-                "Re-authenticate: .venv/bin/python scripts/spotify_auth.py"
+                "From the skill root, re-authenticate: .venv/bin/python scripts/spotify_auth.py"
             ) from exc
 
 
@@ -153,7 +153,7 @@ class SpotifyClient:
         if not tokens_path.exists():
             raise RuntimeError(
                 f"Spotify token file not found at {tokens_path}.\n\n"
-                "You need to authenticate first:\n"
+                "You need to authenticate first. From the skill root, run:\n"
                 "  .venv/bin/python scripts/spotify_auth.py\n\n"
                 "This will open a browser window for Spotify login and save your tokens."
             )

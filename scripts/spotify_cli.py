@@ -46,7 +46,7 @@ def check_status() -> dict[str, Any]:
     tokens_path = resolve_tokens_path()
     status["token_exists"] = tokens_path.exists()
     if not status["token_exists"]:
-        status["fix"] = "Run: .venv/bin/python scripts/spotify_auth.py"
+        status["fix"] = "From the skill root, run: .venv/bin/python scripts/spotify_auth.py"
         return status
 
     try:
@@ -58,7 +58,7 @@ def check_status() -> dict[str, Any]:
         status["user"] = me.get("display_name") or me.get("id")
     except Exception as e:
         status["token_error"] = str(e)
-        status["fix"] = "Re-run: .venv/bin/python scripts/spotify_auth.py"
+        status["fix"] = "From the skill root, re-run: .venv/bin/python scripts/spotify_auth.py"
 
     return status
 
