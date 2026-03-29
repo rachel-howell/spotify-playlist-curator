@@ -12,7 +12,7 @@ Describe what you want in natural language. The agent translates your intent int
 - *"Based on the songs I've been listening to lately, pick the high-energy ones and put a playlist together for my gym session. Throw in a few new ones that match the vibe"* — pulls recent listening history, filters by energy and danceability, seeds recommendations from the top matches
 - *"Take my road trip playlist and make it more upbeat without losing the indie feel"* — analyzes the existing playlist's audio DNA, recommends tracks that boost energy and danceability while preserving genre affinity
 - *"A playlist of only Bjork and Radiohead deep cuts"* — pulls artist catalogs directly, filters by popularity
-- *"Blend the vibe of my gym playlist with my lo-fi study playlist"* — profiles both playlists' audio features, finds the fusion zone, sources candidates that live in the overlap
+- *"Find my 'March 2026' playlist, remove all the Drake songs, and add some more relaxed tracks that pair well with what's left"* — locates the playlist by name, removes specific artist's tracks, analyzes the remaining audio profile, recommends new tracks that match
 
 The agent explains its reasoning at every step — which seeds it chose and why, what audio features it's targeting, and what trade-offs it made.
 
