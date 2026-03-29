@@ -9,7 +9,7 @@ The following endpoints have been removed or deprecated by Spotify and are **not
 - `GET /artists/{id}/related-artists` — removed entirely
 - `GET /artists/{id}/top-tracks` — returns 403 as of March 2026
 
-The recommendation engine works around these gaps using what still works: search (with genre/artist filters), artist info (with genres), artist top tracks, album tracks, and user listening data.
+The recommendation engine works around these gaps using what still works: search (with genre/artist filters), artist info, album tracks, and user listening data. Artist top tracks uses a search-based fallback since the native endpoint is broken.
 
 ## Recommendation engine
 
@@ -81,7 +81,7 @@ Reuses `_BLEND_FEATURES`, `_BLEND_WEIGHTS`, and `_normalize_feature()` from the 
 
 The original recommendation engine, preserved as Tier 3 fallback:
 
-1. **Candidate generation** — multi-source funnel (~20-30 Spotify API calls): artist top tracks, genre search, artist name search, cross-genre discovery
+1. **Candidate generation** — multi-source funnel (~20-30 Spotify API calls): artist name search (fallback for broken top-tracks endpoint), genre search, cross-genre discovery
 2. **Scoring** — genre overlap (35%) + artist proximity (30%) + popularity (20%) + freshness (15%)
 3. **Filtering** — same as ReccoBeats path
 
@@ -103,9 +103,11 @@ The original recommendation engine, preserved as Tier 3 fallback:
 - **`size` not `limit`** — recommendation endpoint uses `size` parameter
 - **Audio feature filters silently return empty** — don't use them; fetch features separately
 
-### `_get_artist_top_tracks`
+### `_get_artist_top_tracks` / `get_artist_top_tracks`
 
-Uses `GET /artists/{id}/top-tracks` directly via `_api_request`. This endpoint returns empty results as of March 2026 (appears fully broken now, not just deprecated). The `recommend()` seed resolution falls back to search when top tracks returns empty.
+`_get_artist_top_tracks(artist_id)` calls `GET /artists/{id}/top-tracks` directly via `_api_request`. This endpoint returns **403 Forbidden** as of March 2026 (confirmed across multiple artists and auth methods, including with `market` parameter).
+
+The public `get_artist_top_tracks(artist_name)` method resolves the artist name via search, tries the native endpoint first, then falls back to `search_track(f'artist:"{name}"', limit=10)` filtered by artist ID. Results are capped at 10 (Spotify search limit) and are relevance-ordered rather than popularity-ordered, but overlap heavily with what the native endpoint used to return.
 
 ## Discovery
 
@@ -242,6 +244,20 @@ Both `analyze_playlist()` and `blend_dna()` can hang or get killed on very large
 - `blend-dna --max-tracks-per-group N` (default 100, 0 = unlimited)
 
 Defaults are tuned so commands complete in under 15 seconds for any playlist size.
+
+## Artist name normalization
+
+All artist name comparisons (exclude filters, boost filters, seed deduplication, `search_artist_misses`) use `_normalize_name()`, which lowercases and strips diacritics via NFD decomposition. This ensures `"Touche Amore"` matches `"Touché Amoré"`, `"Beyonce"` matches `"Beyoncé"`, etc.
+
+Without this, `--exclude-artists` and `--boost-artists` silently fail for any artist with accented characters — the user types the ASCII version but Spotify returns the accented form.
+
+## Exclude-artists safety net
+
+The `recommend()` method applies a `_final_exclude_filter()` to the return value of all three tiers in the fallback chain. This is defense-in-depth: each tier has its own per-candidate exclude check during scoring, but edge cases (seed artist resolution, collaborator discovery, featured appearances) can leak excluded artists into results. The final filter guarantees no leaks regardless of which tier produced the results.
+
+## Audio-features `_not_found` reporting
+
+When `audio-features` is called with `--json`, the output includes a `_not_found` array listing any track IDs that ReccoBeats couldn't resolve. This lets the agent know which tracks have no feature data and adjust its candidate pool accordingly. The underscore prefix avoids collision with track ID keys. When all tracks are found, output is unchanged (no breaking change).
 
 ## Safety
 
