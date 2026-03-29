@@ -8,7 +8,7 @@ Describe what you want in natural language. The agent translates your intent int
 
 **Some examples:**
 
-- *"Make me a playlist that sounds like if Touche Amore and La Dispute started a band together"* — seeds from both artists, discovers the overlapping sonic space, builds a cohesive mix
+- *"Make me a playlist that combines the sound of Lana Del Rey's 'Venice Bitch' with Mitski's 'My Love Mine All Mine', about an hour long, and don't include 'Mariner's Apartment Complex'"* — seeds from specific tracks, blends both artists' sonic profiles, trims to duration, excludes the named track
 - *"Something chill and acoustic for a rainy afternoon, maybe 45 minutes"* — targets low energy, high acousticness, trims to duration
 - *"Take my road trip playlist and make it more upbeat without losing the indie feel"* — analyzes the existing playlist's audio DNA, recommends tracks that boost energy and danceability while preserving genre affinity
 - *"A playlist of only Bjork and Radiohead deep cuts"* — pulls artist catalogs directly, filters by popularity
