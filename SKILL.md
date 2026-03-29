@@ -23,21 +23,23 @@ Use this skill for Spotify playlist creation, song selection, listening-history 
 
 ## Environment pre-check
 
+**All commands must be run from the skill root directory** (the directory containing this `SKILL.md`). Always `cd` to the skill root before running any CLI command.
+
 Before your first CLI call, check that the environment is set up:
 
 1. **Check for `.venv`** — if the `.venv` directory does not exist in the skill root, tell the user to run setup first:
    ```bash
-   bash scripts/setup.sh
+   cd <skill-root> && bash scripts/setup.sh
    ```
    Do not attempt to create the venv yourself or install dependencies manually. The setup script handles everything including credential prompts.
 
 2. **Check auth** — once `.venv` exists, verify authentication:
    ```bash
-   .venv/bin/python scripts/spotify_cli.py --json status
+   cd <skill-root> && .venv/bin/python scripts/spotify_cli.py --json status
    ```
    If `authenticated` is false, tell the user to run the auth flow:
    ```bash
-   .venv/bin/python scripts/spotify_auth.py
+   cd <skill-root> && .venv/bin/python scripts/spotify_auth.py
    ```
 
 Do not attempt other commands until `status` returns `authenticated: true`.
@@ -107,7 +109,7 @@ Map user language to CLI flags:
 
 ## CLI reference
 
-All commands go through `.venv/bin/python scripts/spotify_cli.py <command>`. Pass `--json` before the command for machine-readable output.
+All commands go through `.venv/bin/python scripts/spotify_cli.py <command>`, run from the skill root directory. Pass `--json` before the command for machine-readable output.
 
 ### Status
 

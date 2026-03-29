@@ -47,23 +47,23 @@ EOF
   echo "  1. Go to https://developer.spotify.com/dashboard and create an app"
   echo "     Set the redirect URI to: http://127.0.0.1:8888/callback"
   echo "  2. Fill in your credentials in .env"
-  echo "  3. Run: .venv/bin/python scripts/spotify_auth.py"
+  echo "  3. Run: $VENV_DIR/bin/python $SKILL_DIR/scripts/spotify_auth.py"
   echo ""
   echo "If your credentials are stored elsewhere, set SPOTIFY_ENV_PATH and re-run auth:"
-  echo "  SPOTIFY_ENV_PATH=/path/to/creds.env .venv/bin/python scripts/spotify_auth.py"
+  echo "  SPOTIFY_ENV_PATH=/path/to/creds.env $VENV_DIR/bin/python $SKILL_DIR/scripts/spotify_auth.py"
 elif grep -qE 'CLIENT_ID=your_client_id_here|CLIENT_SECRET=your_client_secret_here' "$ENV_FILE" 2>/dev/null; then
   echo "Fill in your credentials in .env, then authenticate:"
-  echo "  .venv/bin/python scripts/spotify_auth.py"
+  echo "  $VENV_DIR/bin/python $SKILL_DIR/scripts/spotify_auth.py"
 elif ! grep -q 'CLIENT_ID' "$ENV_FILE" 2>/dev/null || ! grep -q 'CLIENT_SECRET' "$ENV_FILE" 2>/dev/null; then
   echo "Warning: .env exists but may be missing SPOTIPY_CLIENT_ID or SPOTIPY_CLIENT_SECRET."
   echo "Make sure both are set, then authenticate:"
-  echo "  .venv/bin/python scripts/spotify_auth.py"
+  echo "  $VENV_DIR/bin/python $SKILL_DIR/scripts/spotify_auth.py"
 else
   TOKENS_FILE="$SKILL_DIR/spotify_tokens.json"
   if [ -f "$TOKENS_FILE" ] && grep -q 'access_token' "$TOKENS_FILE" 2>/dev/null; then
     echo "Already set up. You're ready to go!"
   else
     echo "Credentials found in .env. Next step — authenticate:"
-    echo "  .venv/bin/python scripts/spotify_auth.py"
+    echo "  $VENV_DIR/bin/python $SKILL_DIR/scripts/spotify_auth.py"
   fi
 fi
