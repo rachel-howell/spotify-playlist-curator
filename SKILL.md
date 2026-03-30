@@ -93,7 +93,7 @@ Map user language to CLI flags:
 | "bangers" / "hits" | `--popularity-target 75` | Favors popular tracks |
 | "energetic" / "upbeat" | Use seed tracks with high energy/danceability | Audio features steer ReccoBeats recommendations |
 | "chill" / "mellow" | Use seed tracks with low energy + high acousticness | Audio features steer ReccoBeats recommendations |
-| "nothing from [playlist]" | `--exclude-uris <uris...>` | Removes specific tracks from candidates |
+| "nothing from [playlist]" | `--exclude-uris <uris...>` (`recommend` only) | Removes specific tracks from candidates. Not available on `blend-dna` — exclude manually from final track selection. |
 | "like X meets Y" / "blend of X and Y" | `blend-dna --group-a <X tracks> --group-b <Y tracks>` | Finds the overlap zone between two aesthetics |
 | "lean more toward X" | `blend-dna --weight-a 0.7` (or 0.3 for group B) | Shifts the blend target toward one group |
 | "about an hour" / duration target | `--target-duration 60` | Trims results to fit target duration in minutes |
