@@ -1,5 +1,5 @@
 ---
-name: spotify-playlist-curator
+name: playlist-curator
 description: Create and refine Spotify playlists using the Spotify Web API, with support for track search, recent and top listening lookups, queueing selected tracks, and curated playlist generation from vibes, seed tracks, and listening history. Use when a user wants a new playlist, wants tracks added to a playlist, wants songs similar to a song, artist, or mood, or wants a few selected songs queued.
 ---
 
