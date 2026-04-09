@@ -17,7 +17,7 @@ clawhub install spotify-playlist-curator
 
 A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that gives AI agents musical intuition. I built this because I was unsatisfied with Spotify’s existing music recommendation features. It allows AI agents to reason deeply about music, getting recommendations based on user requests and then critically considering which ones to include in the playlist it’s making. It gives them a framework that includes audio DNA profiling, multi-source recommendations with scored explanations, and tools for blending aesthetics across artists and genres. And since there’s so much room for thinking and personalization, it provides lots of surface area for fun emergent behavior!
 
-![example](assets/ashnikkoxnightlovell.png)
+![example](assets/forest.png)
 
 ## What can it do?
 
