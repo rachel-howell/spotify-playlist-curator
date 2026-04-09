@@ -1,5 +1,20 @@
 # Spotify Playlist Curator
 
+## Install
+
+**Claude (Marketplace):**
+```bash
+claude plugin marketplace add rachel-howell/spotify-playlist-curator
+claude plugin install playlist-curator
+```
+
+**OpenClaw:**
+```bash
+clawhub install spotify-playlist-curator
+```
+
+---
+
 A [Claude Code](https://docs.anthropic.com/en/docs/claude-code) skill that gives AI agents musical intuition. Instead of wrapping API calls behind a chat interface, it provides a framework for *reasoning about sound* — audio DNA profiling, multi-source recommendations with scored explanations, and tools for blending aesthetics across artists and genres. The agent doesn't just fetch tracks; it understands why they belong together, explains its choices, and adapts when the vibe is off.
 
 ## What can it do?
